@@ -1,4 +1,5 @@
 import { Phone } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   return (
@@ -7,9 +8,12 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           {/* Logo */}
           <div>
-            <span className="text-2xl font-black tracking-tight text-primary-foreground">
-              MSD <span className="text-electric font-light italic text-lg">Consultores</span>
-            </span>
+            <div className="flex items-center gap-3">
+              <img src={logo} alt="MSD Consultores" className="h-10 w-10" />
+              <span className="text-2xl font-black tracking-tight text-primary-foreground">
+                MSD <span className="text-primary-foreground/60 font-light italic text-lg">Consultores</span>
+              </span>
+            </div>
             <p className="text-primary-foreground/40 text-sm mt-4 leading-relaxed">
               Soporte Informático de élite para empresas canarias. Tecnología que no falla, cuando más la necesitas.
             </p>
