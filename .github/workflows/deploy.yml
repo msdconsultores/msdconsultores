@@ -4,11 +4,16 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: read
   pages: write
   id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -19,9 +24,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: "npm"
 
-      - run: npm install
+      - run: npm ci
       - run: npm run build
+
+      # DEBUG: confirma que dist y assets existen (si falla aquí, ya sabes por qué hay 404)
+      - run: ls -la && ls -la dist && ls -la dist/assets
 
       - uses: actions/upload-pages-artifact@v3
         with:
@@ -32,7 +41,5 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/deploy-pages@v4
-        id: deployment
